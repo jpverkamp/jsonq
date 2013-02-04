@@ -1,3 +1,28 @@
+Usage:
+
+    jsonq [options] [file ...]
+
+Options:
+
+    --[c]ount 
+      print a count of each unique entry that matches the query, defaults to false
+    --[f]ilter [not] query file
+      only consider records where any field matching a json query is in the given file
+      if not is present, invert the filter
+      the default is no filter
+    --[h]elp
+      display usage
+    --[o]ne [query]
+      return only one entry from a given query (the first)
+    --[q]uery [query]
+      the query to run on the json objects, it should be a path within the json objects
+      use '-' to return all values, this is the default
+    --[s]ort [key|val]?
+      defult is to not sort, use whatever default order
+      if sorting, key is default; if key, sort by query; if val, sort by count
+
+Input files can be either plaintext, gzipped, or - for stdin.
+
 Some example commands using Twitter API responses:
 
 Get a list of all user IDs in a series of files:
