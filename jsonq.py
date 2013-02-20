@@ -197,18 +197,22 @@ for file in files:
         try:
 
             js = json.loads(line)
+            one_break = False
 
+            # If --one is enabled, only tests a json record if we haven't before
             if one_enabled:
                 skip = False
                 for one_result in lookup(js, one_query):
                     if one_result in one_set:
                         skip = True
                     else:
+                        one_break = True
                         one_set.add(one_result)
 
                 if skip:
                     continue
 
+            # If we're filtering, check the filter condition first
             if filtering:
                 if filter_not:
                     skip = False
@@ -227,8 +231,13 @@ for file in files:
                 if skip:
                     continue
 
+            # Loop through all possible results
             for result in lookup(js, query):
                 results[result] += 1
+
+                # If we were only filtering one, only return the first from each record too
+                if one_break: 
+                    break
 
         except Exception, e:
             print('>>> ERROR <<<', sys.stderr)
